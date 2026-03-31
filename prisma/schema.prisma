@@ -18,7 +18,6 @@ model Aluno {
   email      String   @unique
   nascimento DateTime @db.Date
   createdAt  DateTime @default(now())
-  turmaId    Int?
 
   turmas Turma[] @relation("TurmaAlunos")
 }
