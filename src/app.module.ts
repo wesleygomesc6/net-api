@@ -20,6 +20,15 @@ import { ExcluirProfessorController } from "./controllers/professor/excluir-prof
 import { CriarProfessorController } from "./controllers/professor/criar-professor.controller";
 import { EditarProfessorController } from "./controllers/professor/editar-professor.controller";
 import { ListarProfessoresController } from "./controllers/professor/listar-professores.controller";
+import { DisciplinasRepository } from "./database/repositories/disciplinas-repository";
+import { CriarDisciplinaController } from "./controllers/disciplina/criar-disciplina.controller";
+import { EditarDisciplinaController } from "./controllers/disciplina/editar-disciplina.controller";
+import { ExcluirDisciplinaController } from "./controllers/disciplina/excluir-disciplina.controller";
+import { ListarDisciplinasController } from "./controllers/disciplina/listar-disciplinas.controller";
+import { CriarDisciplinaService } from "./providers/disciplina/criar-disciplina.service";
+import { EditarDisciplinaService } from "./providers/disciplina/editar-disciplina.service";
+import { ExcluirDisciplinaService } from "./providers/disciplina/excluir-disciplina.service";
+import { ListarDisciplinasService } from "./providers/disciplina/listar-disciplinas.service";
 
 @Module({
   imports: [DatabaseModule, ConfigModule.forRoot({ isGlobal: true })],
@@ -32,11 +41,16 @@ import { ListarProfessoresController } from "./controllers/professor/listar-prof
     CriarProfessorController,
     EditarProfessorController,
     ExcluirProfessorController,
+    ListarDisciplinasController,
+    CriarDisciplinaController,
+    EditarDisciplinaController,
+    ExcluirDisciplinaController,
   ],
   providers: [
     PrismaService,
     AlunosRepository,
     ProfessoresRepository,
+    DisciplinasRepository,
     ListarAlunosService,
     CriarAlunoService,
     EditarAlunoService,
@@ -45,6 +59,10 @@ import { ListarProfessoresController } from "./controllers/professor/listar-prof
     CriarProfessorService,
     EditarProfessorService,
     ExcluirProfessorService,
+    ListarDisciplinasService,
+    CriarDisciplinaService,
+    EditarDisciplinaService,
+    ExcluirDisciplinaService,
   ],
 })
 export class AppModule {}
