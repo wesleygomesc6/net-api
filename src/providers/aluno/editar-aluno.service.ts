@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { AlunosRepository } from "src/database/repositories/alunos-repository";
-import { EditarAlunoBody } from "src/infra/aluno/editar-aluno.controller";
+import { EditarAlunoBody } from "src/controllers/aluno/editar-aluno.controller";
 
 @Injectable()
 export class EditarAlunoService {

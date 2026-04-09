@@ -1,6 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { ListarAlunosService } from "src/providers/aluno/listar.service";
+import { ListarAlunosService } from "src/providers/aluno/listar-alunos.service";
 import { Aluno } from "src/providers/entities/aluno";
 
 @Controller("alunos")

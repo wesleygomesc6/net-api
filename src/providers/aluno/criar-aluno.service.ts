@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { AlunosRepository } from "src/database/repositories/alunos-repository";
-import { CriarAlunoBody } from "src/infra/aluno/criar-aluno.controller";
+import { CriarAlunoBody } from "src/controllers/aluno/criar-aluno.controller";
 
 @Injectable()
 export class CriarAlunoService {

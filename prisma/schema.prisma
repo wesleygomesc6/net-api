@@ -17,17 +17,21 @@ model Aluno {
   nome       String
   email      String   @unique
   nascimento DateTime @db.Date
-  createdAt  DateTime @default(now())
+  createdAt  DateTime @default(now()) @map("created_at")
 
-  turmas Turma[] @relation("TurmaAlunos")
+  turmas Turma[] @relation("tuma_alunos")
+
+  @@map("alunos")
 }
 
 model Disciplina {
   id        Int      @id @default(autoincrement())
   nome      String
   codigo    String   @unique
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
   turmas    Turma[]
+
+  @@map("disciplinas")
 }
 
 model Professor {
@@ -35,18 +39,22 @@ model Professor {
   nome       String
   email      String   @unique
   nascimento DateTime @db.Date
-  createdAt  DateTime @default(now())
+  createdAt  DateTime @default(now()) @map("created_at")
   turmas     Turma[]
+
+  @@map("professores")
 }
 
 model Turma {
   id           Int      @id @default(autoincrement())
   nome         String
-  disciplinaId Int
-  professorId  Int
-  alunos       Aluno[]  @relation("TurmaAlunos")
-  createdAt    DateTime @default(now())
+  disciplinaId Int      @map("disciplina_id")
+  professorId  Int      @map("professor_id")
+  alunos       Aluno[]  @relation("tuma_alunos")
+  createdAt    DateTime @default(now()) @map("created_at")
 
   disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
   professor  Professor  @relation(fields: [professorId], references: [id])
+
+  @@map("turmas")
 }

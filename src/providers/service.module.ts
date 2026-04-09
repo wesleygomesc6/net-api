@@ -1,8 +1,12 @@
 import { Module } from "@nestjs/common";
-import { ListarAlunosService } from "./aluno/listar.service";
+import { ListarAlunosService } from "./aluno/listar-alunos.service";
 import { CriarAlunoService } from "./aluno/criar-aluno.service";
 import { EditarAlunoService } from "./aluno/editar-aluno.service";
 import { ExcluirAlunoService } from "./aluno/excluir-aluno.service";
+import { CriarProfessorService } from "./professor/criar-professor.service";
+import { EditarProfessorService } from "./professor/editar-professor.service";
+import { ExcluirProfessorService } from "./professor/excluir-professor.service";
+import { ListarProfessoresService } from "./professor/listar-professores.service";
 
 @Module({
   imports: [],
@@ -12,12 +16,20 @@ import { ExcluirAlunoService } from "./aluno/excluir-aluno.service";
     CriarAlunoService,
     EditarAlunoService,
     ExcluirAlunoService,
+    ListarProfessoresService,
+    CriarProfessorService,
+    EditarProfessorService,
+    ExcluirProfessorService,
   ],
   exports: [
     ListarAlunosService,
     CriarAlunoService,
     EditarAlunoService,
     ExcluirAlunoService,
+    ListarProfessoresService,
+    CriarProfessorService,
+    EditarProfessorService,
+    ExcluirProfessorService,
   ],
 })
 export class ServiceModule {}
