@@ -7,6 +7,10 @@ import { CriarProfessorService } from "./professor/criar-professor.service";
 import { EditarProfessorService } from "./professor/editar-professor.service";
 import { ExcluirProfessorService } from "./professor/excluir-professor.service";
 import { ListarProfessoresService } from "./professor/listar-professores.service";
+import { ListarDisciplinasService } from "./disciplina/listar-disciplinas.service";
+import { CriarDisciplinaService } from "./disciplina/criar-disciplina.service";
+import { EditarDisciplinaService } from "./disciplina/editar-disciplina.service";
+import { ExcluirDisciplinaService } from "./disciplina/excluir-disciplina.service";
 
 @Module({
   imports: [],
@@ -30,6 +34,10 @@ import { ListarProfessoresService } from "./professor/listar-professores.service
     CriarProfessorService,
     EditarProfessorService,
     ExcluirProfessorService,
+    ListarDisciplinasService,
+    CriarDisciplinaService,
+    EditarDisciplinaService,
+    ExcluirDisciplinaService,
   ],
 })
 export class ServiceModule {}
