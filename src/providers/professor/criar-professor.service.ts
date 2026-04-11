@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { CriarProfessorBody } from "src/controllers/professor/criar-professor.controller";
-import { ProfessoresRepository } from "src/database/repositories/professores-repository";
+import { Injectable } from '@nestjs/common'
+import { CriarProfessorBody } from 'src/controllers/professor/criar-professor.controller'
+import { ProfessoresRepository } from 'src/database/repositories/professores-repository'
 
 @Injectable()
 export class CriarProfessorService {
@@ -10,6 +10,6 @@ export class CriarProfessorService {
     return this.professorsRepository.criar({
       ...data,
       nascimento: new Date(data.nascimento),
-    });
+    })
   }
 }

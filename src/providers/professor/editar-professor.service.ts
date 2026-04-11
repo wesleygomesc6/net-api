@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { EditarProfessorBody } from "src/controllers/professor/editar-professor.controller";
-import { ProfessoresRepository } from "src/database/repositories/professores-repository";
+import { Injectable } from '@nestjs/common'
+import { EditarProfessorBody } from 'src/controllers/professor/editar-professor.controller'
+import { ProfessoresRepository } from 'src/database/repositories/professores-repository'
 
 @Injectable()
 export class EditarProfessorService {
@@ -10,6 +10,6 @@ export class EditarProfessorService {
     return this.professorsRepository.atualizar(id, {
       ...data,
       nascimento: new Date(data.nascimento),
-    });
+    })
   }
 }
