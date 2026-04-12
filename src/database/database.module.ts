@@ -6,6 +6,8 @@ import { MockAlunosRepository } from './repositories/mocks/mock-alunos-repositor
 import { MockDisciplinasRepository } from './repositories/mocks/mock-disciplinas-repository'
 import { MockProfessoresRepository } from './repositories/mocks/mock-professores-repository'
 import { ProfessoresRepository } from './repositories/professores-repository'
+import { MockTurmasRepository } from './repositories/mocks/mock-turmas-repository'
+import { TurmasRepository } from './repositories/turmas-repository'
 
 @Module({
   imports: [],
@@ -23,12 +25,17 @@ import { ProfessoresRepository } from './repositories/professores-repository'
       provide: ProfessoresRepository,
       useClass: MockProfessoresRepository,
     },
+    {
+      provide: TurmasRepository,
+      useClass: MockTurmasRepository,
+    },
   ],
   exports: [
     PrismaService,
     AlunosRepository,
     DisciplinasRepository,
     ProfessoresRepository,
+    TurmasRepository,
   ],
 })
 export class DatabaseModule {}
