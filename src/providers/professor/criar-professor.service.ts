@@ -10,6 +10,9 @@ export class CriarProfessorService {
     return this.professorsRepository.criar({
       ...data,
       nascimento: new Date(data.nascimento),
+      turmas: {
+        connect: data.turmas?.map((turma) => ({ id: turma.id })) || [],
+      },
     })
   }
 }

@@ -10,6 +10,9 @@ export class EditarAlunoService {
     return this.alunosRepository.atualizar(id, {
       ...data,
       nascimento: new Date(data.nascimento),
+      turmas: {
+        set: data.turmas?.map((turma) => ({ id: turma.id })) || [],
+      },
     })
   }
 }

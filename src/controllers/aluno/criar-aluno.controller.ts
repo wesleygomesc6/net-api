@@ -8,6 +8,7 @@ const criarAlunoBody = z.object({
   nome: z.string(),
   email: z.string().email(),
   nascimento: z.coerce.date(),
+  turmas: z.array(z.object({ id: z.number(), nome: z.string() })).optional(),
 })
 
 export type CriarAlunoBody = z.infer<typeof criarAlunoBody>

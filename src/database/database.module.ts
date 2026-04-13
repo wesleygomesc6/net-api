@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common'
 import { PrismaService } from './prisma/prisma.service'
 import { AlunosRepository } from './repositories/alunos-repository'
 import { DisciplinasRepository } from './repositories/disciplinas-repository'
-import { MockAlunosRepository } from './repositories/mocks/mock-alunos-repository'
-import { MockDisciplinasRepository } from './repositories/mocks/mock-disciplinas-repository'
-import { MockProfessoresRepository } from './repositories/mocks/mock-professores-repository'
 import { ProfessoresRepository } from './repositories/professores-repository'
-import { MockTurmasRepository } from './repositories/mocks/mock-turmas-repository'
 import { TurmasRepository } from './repositories/turmas-repository'
+import { PrismaAlunosRepository } from './repositories/prisma/prisma-alunos-repository'
+import { PrismaDisciplinasRepository } from './repositories/prisma/prisma-disciplinas-repository'
+import { PrismaProfessoresRepository } from './repositories/prisma/prisma-professores-repository'
+import { PrismaTurmasRepository } from './repositories/prisma/prisma-turmas-repository'
 
 @Module({
   imports: [],
@@ -15,19 +15,19 @@ import { TurmasRepository } from './repositories/turmas-repository'
     PrismaService,
     {
       provide: AlunosRepository,
-      useClass: MockAlunosRepository,
+      useClass: PrismaAlunosRepository,
     },
     {
       provide: DisciplinasRepository,
-      useClass: MockDisciplinasRepository,
+      useClass: PrismaDisciplinasRepository,
     },
     {
       provide: ProfessoresRepository,
-      useClass: MockProfessoresRepository,
+      useClass: PrismaProfessoresRepository,
     },
     {
       provide: TurmasRepository,
-      useClass: MockTurmasRepository,
+      useClass: PrismaTurmasRepository,
     },
   ],
   exports: [
