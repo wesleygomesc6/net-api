@@ -1,73 +1,124 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NET API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API desenvolvida com NestJS para gerenciamento de:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Alunos
+- Professores
+- Disciplinas
+- Turmas
 
-## Description
+O projeto segue uma arquitetura em camadas com controllers, services e repositories, permitindo alternar facilmente entre persistencia mockada (em memoria) e persistencia real com Prisma.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tecnologias
 
-## Installation
+- Node.js
+- NestJS
+- Prisma ORM
+- MySQL
+- Zod (validacao de payload)
+- Swagger (documentacao da API)
 
-```bash
-$ npm install
+## Funcionalidades
+
+Cada recurso possui CRUD completo:
+
+- Alunos: criar, listar, editar e excluir
+- Professores: criar, listar, editar e excluir
+- Disciplinas: criar, listar, editar e excluir
+- Turmas: criar, listar, editar e excluir
+
+## Documentacao Swagger
+
+Com a aplicacao em execucao, acesse:
+
+- http://localhost:3334/api
+
+## Estrutura (resumo)
+
+```text
+src/
+  controllers/   # Camada HTTP
+  providers/     # Regras de negocio (services + entities)
+  database/      # Prisma + repositories (mocks e reais)
+prisma/
+  schema.prisma
+  migrations/
 ```
 
-## Running the app
+## Requisitos
+
+- Node.js 20+
+- npm
+- DATABASE_URL configurada no ambiente (para uso com Prisma real)
+
+## Instalacao
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Test
+## Executando o projeto
 
 ```bash
-# unit tests
-$ npm run test
+# desenvolvimento
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
+# modo padrao
+npm run start
 
-# test coverage
-$ npm run test:cov
+# producao
+npm run start:prod
 ```
 
-## Support
+## Prisma e banco de dados
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Configure a variavel de ambiente DATABASE_URL.
+2. Ajuste o schema em prisma/schema.prisma, se necessario.
+3. Rode as migracoes:
 
-## Stay in touch
+```bash
+npx prisma migrate deply # aplicar as migrations existentes
+npx prisma migrate dev # criar nova migration
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+4. Gere o client do Prisma (se necessario):
 
-## License
+```bash
+npx prisma generate
+```
 
-Nest is [MIT licensed](LICENSE).
+## Repositorios mockados e reais
+
+O projeto possui duas implementacoes para cada repositorio:
+
+- Mockados (em memoria):
+  - src/database/repositories/mocks/mock-alunos-repository.ts
+  - src/database/repositories/mocks/mock-professores-repository.ts
+  - src/database/repositories/mocks/mock-disciplinas-repository.ts
+  - src/database/repositories/mocks/mock-turmas-repository.ts
+- Reais (Prisma):
+  - src/database/repositories/prisma/prisma-alunos-repository.ts
+  - src/database/repositories/prisma/prisma-professores-repository.ts
+  - src/database/repositories/prisma/prisma-disciplinas-repository.ts
+  - src/database/repositories/prisma/prisma-turmas-repository.ts
+
+Atualmente, o modulo de banco esta configurado para usar os repositorios mockados em src/database/database.module.ts.
+
+### Como alternar para repositorios reais (Prisma)
+
+No arquivo src/database/database.module.ts, troque os providers de cada repositorio de Mock*Repository para Prisma*Repository.
+
+Exemplo para alunos:
+
+```ts
+{
+  provide: AlunosRepository,
+  useClass: PrismaAlunosRepository,
+}
+```
+
+Repita o mesmo para disciplinas, professores e turmas.
+
+## Licenca
+
+Projeto licenciado sob os termos definidos em LICENSE.
