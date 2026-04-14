@@ -8,6 +8,7 @@ const editarProfessorBody = z.object({
   nome: z.string().optional(),
   email: z.string().email().optional(),
   nascimento: z.coerce.date().optional(),
+  turmas: z.array(z.object({ id: z.number(), nome: z.string() })).optional(),
 })
 
 export type EditarProfessorBody = z.infer<typeof editarProfessorBody>
