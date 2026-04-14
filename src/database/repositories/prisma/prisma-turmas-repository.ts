@@ -8,7 +8,13 @@ export class PrismaTurmasRepository implements TurmasRepository {
   constructor(private prisma: PrismaService) {}
 
   async listar(): Promise<Turma[]> {
-    return await this.prisma.turma.findMany()
+    return await this.prisma.turma.findMany({
+      include: {
+        disciplina: true,
+        professor: true,
+        alunos: true,
+      },
+    })
   }
 
   async criar(data: Prisma.TurmaCreateInput): Promise<Turma> {

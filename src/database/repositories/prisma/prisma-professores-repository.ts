@@ -8,7 +8,16 @@ export class PrismaProfessoresRepository implements ProfessoresRepository {
   constructor(private prisma: PrismaService) {}
 
   async listar(): Promise<Professor[]> {
-    return await this.prisma.professor.findMany()
+    return await this.prisma.professor.findMany({
+      include: {
+        turmas: {
+          include: {
+            disciplina: true,
+            alunos: true,
+          },
+        },
+      },
+    })
   }
 
   async criar(data: Prisma.ProfessorCreateInput): Promise<Professor> {

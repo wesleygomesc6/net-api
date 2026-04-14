@@ -8,7 +8,16 @@ export class PrismaAlunosRepository implements AlunosRepository {
   constructor(private prisma: PrismaService) {}
 
   async listar(): Promise<Aluno[]> {
-    return await this.prisma.aluno.findMany()
+    return await this.prisma.aluno.findMany({
+      include: {
+        turmas: {
+          include: {
+            disciplina: true,
+            professor: true,
+          },
+        },
+      },
+    })
   }
 
   async criar(data: Prisma.AlunoCreateInput): Promise<Aluno> {

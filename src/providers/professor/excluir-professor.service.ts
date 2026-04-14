@@ -6,6 +6,6 @@ export class ExcluirProfessorService {
   constructor(private readonly professorsRepository: ProfessoresRepository) {}
 
   async execute(id: number) {
-    return this.professorsRepository.excluir(id)
+    return this.professorsRepository.excluir(Number(id))
   }
 }

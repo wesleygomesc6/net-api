@@ -7,6 +7,6 @@ export class EditarTurmaService {
   constructor(private readonly turmasRepository: TurmasRepository) {}
 
   async execute(id: number, data: EditarTurmaBody) {
-    return this.turmasRepository.atualizar(id, data)
+    return this.turmasRepository.atualizar(Number(id), data)
   }
 }
