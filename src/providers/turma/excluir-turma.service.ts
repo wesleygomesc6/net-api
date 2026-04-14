@@ -6,6 +6,6 @@ export class ExcluirTurmaService {
   constructor(private readonly turmasRepository: TurmasRepository) {}
 
   async execute(id: number) {
-    return this.turmasRepository.excluir(id)
+    return this.turmasRepository.excluir(Number(id))
   }
 }

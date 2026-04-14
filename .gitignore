@@ -4,6 +4,9 @@
 /build
 /tmp
 
+// banco de dados local
+*.db
+
 # Logs
 logs
 *.log

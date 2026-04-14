@@ -7,6 +7,6 @@ export class EditarDisciplinaService {
   constructor(private readonly disciplinasRepository: DisciplinasRepository) {}
 
   async execute(id: number, data: EditarDisciplinaBody) {
-    return this.disciplinasRepository.atualizar(id, data)
+    return this.disciplinasRepository.atualizar(Number(id), data)
   }
 }

@@ -9,14 +9,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
 }
 
 model Aluno {
   id         Int      @id @default(autoincrement())
   nome       String
   email      String   @unique
-  nascimento DateTime @db.Date
+  nascimento DateTime
   createdAt  DateTime @default(now()) @map("created_at")
 
   turmas Turma[] @relation("tuma_alunos")
@@ -38,7 +38,7 @@ model Professor {
   id         Int      @id @default(autoincrement())
   nome       String
   email      String   @unique
-  nascimento DateTime @db.Date
+  nascimento DateTime
   createdAt  DateTime @default(now()) @map("created_at")
   turmas     Turma[]
 

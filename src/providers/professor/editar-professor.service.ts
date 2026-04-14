@@ -7,9 +7,9 @@ export class EditarProfessorService {
   constructor(private readonly professorsRepository: ProfessoresRepository) {}
 
   async execute(id: number, data: EditarProfessorBody) {
-    return this.professorsRepository.atualizar(id, {
+    return this.professorsRepository.atualizar(Number(id), {
       ...data,
-      nascimento: new Date(data.nascimento),
+      nascimento: data.nascimento ? new Date(data.nascimento) : undefined,
       turmas: {
         set: data.turmas?.map((turma) => ({ id: turma.id })) || [],
       },

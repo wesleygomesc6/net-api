@@ -7,9 +7,9 @@ export class EditarAlunoService {
   constructor(private readonly alunosRepository: AlunosRepository) {}
 
   async execute(id: number, data: EditarAlunoBody) {
-    return this.alunosRepository.atualizar(id, {
+    return this.alunosRepository.atualizar(Number(id), {
       ...data,
-      nascimento: new Date(data.nascimento),
+      nascimento: data.nascimento ? new Date(data.nascimento) : undefined,
       turmas: {
         set: data.turmas?.map((turma) => ({ id: turma.id })) || [],
       },
