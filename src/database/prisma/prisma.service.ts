@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common'
 import { PrismaClient } from 'generated/prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
 
 @Injectable()
 export class PrismaService
@@ -8,9 +9,14 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   constructor() {
-    const adapter = new PrismaBetterSqlite3({
-      url: process.env.DATABASE_URL,
-    })
+    // Para a API rodando, usamos a URL de pooler do Supabase (porta 6543)
+    const connectionString = process.env.DATABASE_URL
+
+    // Cria um pool de conexões nativo do Postgres
+    const pool = new Pool({ connectionString })
+
+    // Conecta o pool ao adaptador do Prisma
+    const adapter = new PrismaPg(pool)
 
     super({ adapter })
   }
