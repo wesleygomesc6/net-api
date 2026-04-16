@@ -28,6 +28,9 @@ jobs:
             # 2. Instala a dependência libatomic exigida pelo Node no Amazon Linux
             # sudo dnf install -y libatomic
 
+            # Instala o pm2 globalmente para gerenciar a aplicação Node.js
+            npm install -g pm2
+
             # 3. Lógica para Clonar ou Atualizar (Pull)
             REPO_DIR="/home/ec2-user/net-api"
             REPO_URL="https://github.com/wesleygomesc6/net-api.git"
