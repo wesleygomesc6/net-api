@@ -21,21 +21,39 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: DATABASE_URL,DIRECT_URL
           script: |
-            # Entra na pasta do projeto (Substitua pela sua pasta real)
-            cd /home/ec2-user/net-api
+            # 1. Carrega o NVM para que os comandos npm, node e pm2 funcionem via SSH
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            git pull origin master
+            # 2. Instala a dependência libatomic exigida pelo Node no Amazon Linux
+            # sudo dnf install -y libatomic
 
+            # 3. Lógica para Clonar ou Atualizar (Pull)
+            REPO_DIR="/home/ec2-user/net-api"
+            REPO_URL="https://github.com/wesleygomesc6/net-api.git"
+
+            if [ -d "$REPO_DIR" ]; then
+              echo "Diretorio encontrado. Atualizando os arquivos..."
+              cd $REPO_DIR
+              git pull origin master
+            else
+              echo "Diretorio nao encontrado. Clonando o repositorio..."
+              cd /home/ec2-user
+              git clone $REPO_URL net-api
+              cd net-api
+            fi
+
+            # 4. Instala dependências e recria o arquivo .env
             npm install
 
-            # Recria o arquivo .env com as variáveis de ambiente seguras
             echo "DATABASE_URL=$DATABASE_URL" > .env
             echo "DIRECT_URL=$DIRECT_URL" >> .env
 
+            # 5. Faz o build da aplicação
             npm run build
 
-            # Usa o arquivo pm2 para iniciar ou atualizar a API
+            # 6. Usa o arquivo pm2 para iniciar ou atualizar a API
             pm2 startOrRestart pm2.config.js --env production
 
-            # Salva o estado do PM2
+            # 7. Salva o estado do PM2
             pm2 save
