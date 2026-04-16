@@ -1,0 +1,41 @@
+name: Deploy Automático para AWS EC2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Conectando no servidor e atualizando a API
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: DATABASE_URL,DIRECT_URL
+          script: |
+            # Entra na pasta do projeto (Substitua pela sua pasta real)
+            cd /home/ec2-user/net-api
+
+            git pull origin master
+
+            npm install
+
+            # Recria o arquivo .env com as variáveis de ambiente seguras
+            echo "DATABASE_URL=$DATABASE_URL" > .env
+            echo "DIRECT_URL=$DIRECT_URL" >> .env
+
+            npm run build
+
+            # Usa o arquivo pm2 para iniciar ou atualizar a API
+            pm2 startOrRestart pm2.config.js --env production
+
+            # Salva o estado do PM2
+            pm2 save
